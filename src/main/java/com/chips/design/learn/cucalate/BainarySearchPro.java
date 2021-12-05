@@ -13,18 +13,14 @@ public class BainarySearchPro {
      * @return
      */
     public static int solution(int[] nums, int target) {
-
         //构建位置集合，存放目标值在原数组中的位置
         Map<Integer, Integer> locationMap = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
             locationMap.put(nums[i], i);
         }
-
         //将数组排序还原
         Arrays.sort(nums);
-
         int result = search(nums, target);
-
         if (result == -1) {
             return -1;
         }

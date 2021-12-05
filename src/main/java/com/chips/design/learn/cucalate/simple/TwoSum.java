@@ -10,37 +10,55 @@ import java.util.Map;
 public class TwoSum {
 
 
-    public int[] solution(int[] nums, int target) {
+    public static int[] solution(int[] nums, int target) {
 
-        int[] result = new int[2];
+        int index = 0;
 
-        if (nums.length == 0) {
-            return result;
-        }
+        int length = nums.length;
 
-        Map<Integer, Integer> map = new HashMap<>();
+        while (index < length) {
 
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
+            int currIndex = index + 1;
 
+            if (currIndex > length) return new int[0];
 
-        for (int i = 0; i < nums.length; i++) {
-
-            int num = target - nums[i];
-
-            if (map.containsKey(num)) {
-                int idx = map.get(num);
-                if (idx != i) {
-                    result[0] = i;
-                    result[1] = idx;
+            while (currIndex < length) {
+                if (nums[index] + nums[currIndex] == target) {
+                    return new int[]{index, currIndex};
                 }
-
+                currIndex++;
             }
 
+            index++;
+        }
+        return new int[0];
+    }
+
+
+    public static int[] solution2(int[] nums, int target) {
+        Map<Integer, Integer> targetMap = new HashMap<>(nums.length);
+        int index = 0;
+        for (int num : nums) {
+            targetMap.put(num, index);
+            index++;
         }
 
+        int resultIndex = 0;
+        for (int num : nums) {
+            Integer integer = targetMap.get(target - num);
+            if (integer != null) {
+                return new int[]{resultIndex, integer};
+            }resultIndex++;
+        }
+        return new int[0];
+    }
 
-        return result;
+    public static void main(String[] args) {
+        int a[] = {1, 2, 3, 4, 5};
+        int b = 9;
+        int[] solution = solution2(a, b);
+        for (int i : solution) {
+            System.out.println(i);
+        }
     }
 }
